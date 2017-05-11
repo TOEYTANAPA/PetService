@@ -1,0 +1,66 @@
+
+{% extends 'base.html' %} {% block content %}{% load static %}
+
+<head>
+    <link href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/registandlogin.css' %}" type="text/css" media="all">
+</head>
+<style>
+label {
+    color: white;
+}
+.errorlist{
+    color: red;
+
+}
+.banner {
+    /*background: url("../images/regisb.jpg");*/
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    color: #FFF;
+    font-family: 'Quicksand', sans-serif;
+    text-align: center;
+}
+</style>
+<div class="banner">
+    <div class="agileinfo-dot">
+        <div class="w3layoutscontaineragileits">
+            <h2>Registration </h2>
+            <center></center>
+            <form method="post" action=".">
+                {% csrf_token %} 
+               <!--  {% if form.errors %}
+                <p style="color: red;">
+                    Please correct the error {{ form.errors|pluralize }} below.
+                </p>
+                {% endif %}
+                <p for="">Email </p>
+                <p style="color: red;"> {{ form.errors.username }} </p>{{ form.username }}
+                <br>
+
+                <p for="">Password </p>
+                <p style="color: red;" class="errorlist"> {{ form.non_field_errors }}</p>
+                {{ form.password1 }}
+                <br>
+                <p for="">Confirm Password </p>
+                {{ form.password2 }}
+                <br>
+                <p for="">Phone number </p>
+                {{ form.phonenumber }}
+                <input type="submit" value="Register" /> -->
+            </form>
+            <!-- </div> -->
+            <a href="/">Login</a>
+        </div>
+    </div>
+</div>
+</div>
+<div class="container">
+    <!-- <div class="w3layoutscontaineragileits"> -->
+</div>
+{% endblock %}

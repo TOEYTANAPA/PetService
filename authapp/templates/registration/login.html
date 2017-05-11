@@ -1,0 +1,286 @@
+{% extends 'base.html' %} {% block content %}{% load static %}
+
+<head>
+    <link href="//fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/registandlogin.css' %}" type="text/css" media="all">
+    <link rel="stylesheet" href="{% static 'css/allstyle.css' %}" type="text/css" media="all">
+</head>
+<style>
+body {
+    font-family: 'Roboto Condensed', sans-serif;
+    /*background: url('{% static 'images/loginBG.png' %}');*/
+}
+
+#ban {
+    background: url('{% static 'images/loginBG.png' %}');
+    background-repeat: no-repeat;
+    /*background-attachment: fixed;*/
+    background-position: center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    color: #FFF;
+    /*font-family: 'Quicksand', sans-serif;*/
+    text-align: center;
+}
+
+#loginBG {
+    background: url('{% static 'images/loginBG.png' %}');
+    background-repeat: no-repeat;
+    /*background-attachment: fixed;*/
+    background-position: center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    color: #FFF;
+    /*font-family: 'Quicksand', sans-serif;*/
+    text-align: center;
+}
+
+#obBG {
+    background: url('{% static 'images/obBG.png' %}');
+    background-repeat: no-repeat;
+    /*background-attachment: fixed;*/
+    background-position: center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    color: #FFF;
+    /*font-family: 'Quicksand', sans-serif;*/
+    text-align: center;
+}
+
+#osBG {
+    background: url('{% static 'images/osBG.png' %}');
+    background-repeat: no-repeat;
+    /*background-attachment: fixed;*/
+    background-position: center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    color: #FFF;
+    /*font-family: 'Quicksand', sans-serif;*/
+    text-align: center;
+}
+
+h2 {
+    color: black;
+    text-align: left;
+}
+
+h1 {
+    color: black;
+    text-align: left;
+    font-weight: bold;
+}
+
+p {
+    font-size: 30px;
+}
+
+.btn-primary {
+    border-radius: 25px;
+    height: 50px;
+    width: 97%;
+    display: inline-block;
+    text-align: center;
+    background-color: #3B5998;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 84%;
+    padding: 16px 10px 15px 60px;
+    font-size: 14px;
+    color: black;
+    /*background: transparent;*/
+    border: none;
+    border: 1px solid #FAFFBD;
+    /*outline: none;*/
+    margin-bottom: 26px;
+    /*color: #fff;*/
+    /*border-radius:25px;*/
+    font-family: 'Quicksand', sans-serif;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"]:hover,
+{
+    background-color: #FAFFBD;
+}
+
+s .fancy {
+    line-height: 0.5;
+    text-align: center;
+}
+
+.fancy span {
+    display: inline-block;
+    position: relative;
+}
+
+.fancy span:before,
+.fancy span:after {
+    content: "";
+    position: absolute;
+    height: 5px;
+    border-bottom: 1px solid #C8C7C3;
+    border-top: 1px solid #C8C7C3;
+    top: 0;
+    width: 170px;
+}
+
+.fancy span:before {
+    right: 50%;
+    margin-right: 15px;
+}
+
+.fancy span:after {
+    left: 50%;
+    margin-left: 15px;
+}
+
+label {
+    /*font-weight: bold;*/
+    font-size: 17px;
+}
+</style>
+<!-- banner-bottom -->
+<div id="loginBG" style="">
+    <br>
+    <div class="w3ls-heading">
+        <center>
+            <h2 style="text-align: center">GROOMINGWITH CARE</h2>
+        </center>
+    </div>
+    <div class="welcome-grids" style="margin-top: 35px">
+        <div class="col-md-6 agile-welcome-grid">
+            <div class="grid">
+                <div class="col-md-6 agileits-left">
+                </div>
+                <div class="col-md-6 agileits-left">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 agileinfo-welcome-right">
+            <div class="container">
+                <!-- <div class="agileinfo-dot"> -->
+                <center>
+                    <h2 style="font-weight: bold;text-align: center">Log In</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        <label for="">Username</label> {{ form.username }}
+                        <label for="">Password</label> {{ form.password }}
+                        <input type="submit" value="LOGIN" />
+                    </form>
+                    <br>
+                    <div class="fancy amp" style="color:#C8C7C3 "><span>OR</span></div>
+                    <br>
+                    <button type="button" class="btn btn-primary"><i style="font-size: 35px;margin-left: -20px;margin-top: 0px;  vertical-align: middle;color:white;background-color: transparent;" class="fa fa-facebook-square"></i><a style="color: white;margin-left: 20px;" href="{% url 'social:begin' 'facebook' %}"> Login with your facebook </a></li>
+                    </button>
+                    <li>
+                        <br>
+                        <h3 style="color: black">Don't have an account? <a style="color: #FAD733;font-size: 20px;font-weight: bold;" href="/register"> Sign UP</a></h3>
+                </center>
+            </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+    <br>
+    <br>
+    <br>
+</div>
+<div id="obBG">
+    <!-- banner-bottom -->
+    <!-- <div class="welcome"> -->
+    <div class="container">
+        <h1>OUR BUSINESS</h1>
+        <h2>Our company is unique and extraordinary than other ordinary dog bathing store. Our bathing van go directly to customer's house and we provide a booking system for customer to choose their time through the application. We provide a high quality of dog bathing and more services.</h2>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+    <!-- </div> -->
+</div>
+<!-- banner-bottom
+
+<br>
+<br>
+<br> -->
+<!-- services -->
+<div id="osBG">
+ 
+    <div class="container">
+        <h1>OUR SERVICE</h1>
+        <h2>We also care for customer's dog. We provide complete and safe dog services, you can trust us to take care of your beloved dogs.</h2>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+    <!-- </div> -->
+</div>
+<!-- //services -->
+{% endblock %}{% block script %}
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $(".scroll").click(function(event) {
+        event.preventDefault();
+        $('html,body').animate({
+            scrollTop: $(this.hash).offset().top
+        }, 1000);
+    });
+});
+</script>
+{% endblock script %}

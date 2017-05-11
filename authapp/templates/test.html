@@ -1,0 +1,1436 @@
+{% extends "base.html" %} {% block content %} 
+
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 40%;
+        width: 40%;
+        display: none;
+      }
+      /* Optional: Makes the sample page fill the window. */
+     body,html {
+       margin: 0;
+     padding: 0;
+     text-align: center;
+      }
+
+.ih-item {
+  position: relative;
+  -webkit-transition: all 0.35s ease-in-out;
+  -moz-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out; pointer-events:none;   
+}
+.ih-item,
+.ih-item * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; pointer-events:auto;
+}
+.ih-item a {
+  color: #333;
+}
+.ih-item a:hover {
+  text-decoration: none;
+}
+.ih-item img {
+  width: 100%;
+  height: auto;
+}
+
+.ih-item.circle {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+}
+.ih-item.circle .img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.ih-item.circle .img:before {
+  position: absolute;
+  display: block;
+  content: '';
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.6), 0 1px 2px rgba(0, 0, 0, 0.3);
+  -webkit-transition: all 0.35s ease-in-out;
+  -moz-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+.ih-item.circle .img img {
+  border-radius: 50%;
+}
+.ih-item.circle .info {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  border-radius: 50%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.ih-item.square {
+  position: relative;
+  width: 316px;
+  height: 216px;
+  border: 8px solid #fff;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+.ih-item.square .info {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+
+.ih-item.circle.effect3 .img {
+  z-index: 11;
+  -webkit-transition: all 0.35s ease-in-out;
+  -moz-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+.ih-item.circle.effect3.colored .info {
+  background: #1a4a72;
+}
+.ih-item.circle.effect3 .info {
+  background: #333333;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: all 0.35s ease-in-out;
+  -moz-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+.ih-item.circle.effect3 .info h3 {
+  color: #fff;
+  text-transform: uppercase;
+  position: relative;
+  letter-spacing: 2px;
+  font-size: 22px;
+  margin: 0 30px;
+  padding: 55px 0 0 0;
+  height: 110px;
+  text-shadow: 0 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+.ih-item.circle.effect3 .info p {
+  color: #bbb;
+  padding: 10px 5px;
+  font-style: italic;
+  margin: 0 30px;
+  font-size: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.ih-item.circle.effect3.left_to_right .img {
+  -webkit-transform: scale(1) translateX(0);
+  -moz-transform: scale(1) translateX(0);
+  -ms-transform: scale(1) translateX(0);
+  -o-transform: scale(1) translateX(0);
+  transform: scale(1) translateX(0);
+}
+.ih-item.circle.effect3.left_to_right .info {
+  -webkit-transform: translateX(-100%);
+  -moz-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  -o-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+.ih-item.circle.effect3.left_to_right a:hover .img {
+  -webkit-transform: scale(0.5) translateX(100%);
+  -moz-transform: scale(0.5) translateX(100%);
+  -ms-transform: scale(0.5) translateX(100%);
+  -o-transform: scale(0.5) translateX(100%);
+  transform: scale(0.5) translateX(100%);
+}
+.ih-item.circle.effect3.left_to_right a:hover .info {
+  opacity: 1;
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -o-transform: translateX(0);
+  transform: translateX(0);
+}
+
+
+     
+.col-centered{
+float: none;
+margin: 0 auto;
+}
+
+
+.ih-item.circle.effect17 .info {
+  opacity: 0;
+  -webkit-transform: scale(0);
+  -moz-transform: scale(0);
+  -ms-transform: scale(0);
+  -o-transform: scale(0);
+  transform: scale(0);
+  -webkit-transition: all 0.35s ease-in-out;
+  -moz-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+.ih-item.circle.effect17 .info h3 {
+  color: #fff;
+  text-transform: uppercase;
+  position: relative;
+  letter-spacing: 2px;
+  font-size: 22px;
+  margin: 0 30px;
+  padding: 55px 0 0 0;
+  height: 110px;
+  text-shadow: 0 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+.ih-item.circle.effect17 .info p {
+  color: #bbb;
+  padding: 10px 5px;
+  font-style: italic;
+  margin: 0 30px;
+  font-size: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  -webkit-transition: all 0.35s ease-in-out;
+  -moz-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+.ih-item.circle.effect17 a:hover .img:before {
+  box-shadow: inset 0 0 0 110px #333333, inset 0 0 0 16px rgba(255, 255, 255, 0.8), 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 0 0 110px rgba(0, 0, 0, 0.6), inset 0 0 0 5px rgba(255, 255, 255, 0.8), 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.ih-item.circle.effect17 a:hover .info {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transform: scale(1);
+}
+.ih-item.circle.effect17 a:hover .info p {
+  opacity: 1;
+}
+.ih-item.circle.effect17.colored a:hover .img:before {
+  box-shadow: inset 0 0 0 110px #1a4a72, inset 0 0 0 16px rgba(255, 255, 255, 0.8), 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 0 0 110px rgba(26, 74, 114, 0.6), inset 0 0 0 16px rgba(255, 255, 255, 0.8), 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.jumbotron {
+  background-color:rgba(255, 255, 255, 1.0);
+  transition:all 0.2s ease;
+  /*border:2px solid #525C7A;*/
+  margin-top: 10px;
+  margin-left: 0 !important;
+  box-sizing: border-box;
+  border-radius: 0px;
+  background-clip: padding-box;
+  min-height:340px;
+}
+
+.container {
+    display: inline-block;
+    position: relative;
+    width: 65%;
+
+   
+
+    /*background: url('https://s20.postimg.org/o09gf7fvx/bag.jpg') no-repeat center top;*/
+    background-size: contain;
+}
+
+#dummy {
+    padding-top: 29%;
+}
+
+#rectangle{
+    width:25px;
+    height:25px;
+    background:#e84c3d;
+}
+
+h2{
+	font-size: 50px;
+	text-align: center;
+}
+
+
+    </style>
+{% load static %}
+<html>
+<body>
+	<!-- main -->
+	<div class="main-agileits-w3layouts">
+		<h1>Booking</h1>
+		<br>
+
+
+	
+		<!-- <div class="container"> -->
+		<!-- <div class="all"> -->
+			
+			<div class="container">
+				<div class="jumbotron">
+				<div class="row">
+					<h2 class="head">1. Choose your <img src="../../static/calendar/images/dog.png" height="11%" width="11%" style='vertical-align:middle;'></h2>
+					<hr />
+						   <label class="radio-inline">
+				      <input type="radio" name="optradio" id="1dog" checked="checked">หมา 1 ตัว
+				    </label>
+				    <label class="radio-inline">
+				      <input type="radio" name="optradio" id="2dog">หมา 2 ตัว
+				    </label>
+				    <br />
+			<hr />
+				<p style="font-size: 40px;">Total :<em style="color:#2ecd71;" id="total"> 0 ฿ </em></p>
+				</div>
+				</div>
+			
+				<div class="jumbotron">
+						<div class="row">
+					
+				
+
+						 	<h2 class="head">2. Select Service <img src="../../static/calendar/images/c.png" height="8%" width="8%" style='vertical-align:middle;'></h2>
+						 	<hr />
+					 
+
+							<div class="col-sm-4">
+			 	
+					    <!-- normal -->
+					    	<div class="ih-item circle effect17 col-centered"><a>
+							        <div class="img"><img src="../../static/calendar/images/sn1.png" alt="img"></div>
+							        <div class="info">
+							            <h3>อาบน้ำ <br> 500 บาท</h3>
+							          <p>       <span class="button-checkbox">
+							        <button type="button" class="btn" data-color="primary">Selected</button>
+							        <input id="wash" type="checkbox" class="hidden" value="500" unchecked />
+							    </span>
+							    </p>
+							        </div></a></div>
+							    <!-- end normal -->
+					 
+						
+					    	</div>
+					    	<div class="col-sm-4">
+					 
+							    <!-- normal --> 
+							    <div class="ih-item circle effect17 col-centered"><a>
+							        <div class="img"><img src="../../static/calendar/images/sn2.png" alt="img"></div>
+							        <div class="info">
+							              <h3>ตัดขน <br> 500 บาท</h3>
+							          <p>       <span class="button-checkbox">
+							        <button type="button" class="btn" data-color="primary">Selected</button>
+							        <input id="haircut" type="checkbox" class="hidden" value="500" unchecked />
+							    </span>
+							    </p>
+							        </div></a></div>
+							    <!-- end normal -->
+					 
+						
+					    	</div>
+					    	<div class="col-sm-4">
+					 
+							    <!-- normal -->
+							    <div class="ih-item circle effect17 col-centered"><a>
+							        <div class="img"><img src="../../static/calendar/images/sn3.png" alt="img"></div>
+							        <div class="info">
+							        <h3>ตัดเล็บ <br> 500 บาท</h3>
+							          <p>       <span class="button-checkbox">
+							        <button type="button" class="btn" data-color="primary">Selected</button>
+							        <input id="nailcut" type="checkbox" class="hidden" value="500" unchecked />
+							    </span>
+							    </p>
+							        </div></a></div>
+							    <!-- end normal -->
+					 
+						
+					    	</div>
+
+
+				
+					</div>
+
+
+
+			<br />
+			<div class="row">
+			
+			  <div class="col-sm-4">
+			     <!-- normal --> 
+				<div class="ih-item circle effect17 col-centered"><a>
+					<div class="img"><img src="../../static/calendar/images/sn4.png" alt="img"></div>
+						 <div class="info">
+							<h3>เช็ดหู<br> 500 บาท</h3>
+			          <p>       <span class="button-checkbox">
+			        <button type="button" class="btn" data-color="primary">Selected</button>
+			        <input id="cleanear" type="checkbox" class="hidden" value="500" unchecked />
+			    </span>
+			    </p>
+				</div></a></div>
+				 <!-- end normal -->
+			
+			  </div>
+			  <div class="col-sm-4">
+
+			  	     <!-- normal --> 
+				<div class="ih-item circle effect17 col-centered"><a>
+					<div class="img"><img src="../../static/calendar/images/sn5.png" alt="img"></div>
+						 <div class="info">
+							   <h3>แปรงฟัน <br> 500 บาท</h3>
+			          <p>       <span class="button-checkbox">
+			        <button type="button" class="btn" data-color="primary">Selected</button>
+			        <input id="teeth" type="checkbox" class="hidden" value="500" unchecked />
+			    </span>
+			    </p>
+				</div></a></div>
+				 <!-- end normal -->
+			 
+			 
+			  </div>
+			  <div class="col-sm-4">
+			    	     <!-- normal --> 
+				<div class="ih-item circle effect17 col-centered"><a>
+					<div class="img"><img src="../../static/calendar/images/sn6.png" alt="img"></div>
+						 <div class="info">
+							  <h3>ร้านค้า <br> 500 บาท</h3>
+			          <p>       <span class="button-checkbox">
+			        <button type="button" class="btn" data-color="primary">Selected</button>
+			        <input id="shop" type="checkbox" class="hidden" value="200" unchecked />
+			    </span>
+			    </p>
+				</div></a></div>
+				 <!-- end normal -->
+			 
+			 
+			 
+			  </div>
+			 
+			</div>
+		<!-- 	<br />
+			<hr />
+				<p style="font-size: 40px;">Total :<em style="color:#2ecd71;" id="total"> 0 ฿ </em></p> -->
+				
+		</div>
+					
+		  	
+		  <div class="jumbotron">
+				<div class="row">
+					<h2 class="head">3. Booking</h2>
+					<hr />
+
+					<div class="col-xs-1"></div>
+				<div class="col-xs-10"> 
+			
+
+						<div class="custom-calendar-wrap">
+						<div id="custom-inner" class="custom-inner">
+							<div class="w3ls-header">
+								<nav>
+									<span id="custom-prev" class="custom-prev"></span>
+									<span id="custom-next" class="custom-next"></span>
+									<span id="custom-current" class="custom-current" title="Go to current date"></span>
+								</nav>  
+								<h2 id="custom-month" class="w3layouts-month">MARCH</h2>
+								<h3 id="custom-year" class="w3-agileits-year">2016</h3>
+							</div>
+							<div class="clear"> </div>
+							<div id="calendar" class="fc-calendar-container fc-agile"></div>
+						</div>
+					</div> 
+					<!-- js -->
+
+					<script src="{% static 'calendar/js/jquery-1.11.1.min.js' %}"></script>
+					<script src="{% static 'calendar/js/modernizr.custom.63321.js' %}"></script>
+					<script src="{% static 'calendar/js/jquery.calendario.js' %}" type="text/javascript"></script>
+					<script src="{% static 'calendar/js/data.js' %}" type="text/javascript"></script>
+
+
+			
+			<!-- //calendar -->
+	<br />
+	<p style="text-align: left;">Select date : <em  id="day" style="color:#f39c11; font-size: 25px;font-weight: bold;"></em> </p>
+	<br />		
+	
+
+
+
+
+			
+
+				<table cellpadding="0" cellspacing="0" id="our_table1" class="ttime">
+				  <tr>
+				    <th>9:00-11.00</th>
+				    <th>11.00-13.00</th>
+				    <th>13.00-15.00</th>
+				    <th>15.00-17.00</th>
+				    <th>17.00-19.00</th>
+				    <th>19.00-21.00</th>
+				    
+				
+				  </tr>
+				  <tr>
+	 				<td id="1" onclick="getTime(this.id)" name="1"></td>
+	 				<td id="2" onclick="getTime(this.id)" name="2"></td>
+	 				<td id="3" onclick="getTime(this.id)" name="3"></td>
+	 				<td id="4" onclick="getTime(this.id)" name="4"></td>
+	 				<td id="5" onclick="getTime(this.id)" name="5"></td>
+	 				<td id="6" onclick="getTime(this.id)" name="6"></td>
+	 			
+				   
+				  </tr>
+				  
+				</table>
+
+				<table cellpadding="0" cellspacing="0" id="our_table2" class="ttime">
+				  <tr>
+				    <th>9:00-11.00</th>
+				    <th>11.00-13.00</th>
+				    <th>13.00-15.00</th>
+				    <th>15.00-17.00</th>
+				    <th>17.00-19.00</th>
+				    <th>19.00-21.00</th>
+				    
+				
+				  </tr>
+				  <tr>
+	 				<td id="2_1" onclick="getTime(this.id)" name="2_1" value="1"></td>
+	 				<td id="2_2" onclick="getTime(this.id)" name="2_2" value="2"></td>
+	 				<td id="2_3" onclick="getTime(this.id)" name="2_3" value="3"></td>
+	 				<td id="2_4" onclick="getTime(this.id)" name="2_4" value="4"></td>
+	 				<td id="2_5" onclick="getTime(this.id)" name="2_5" value="5"></td>
+	 				<td id="2_6" onclick="getTime(this.id)" name="2_6" value="6"></td>
+	 			
+				   
+				  </tr>
+				  
+				</table>
+
+
+
+
+				<br>
+				<p><img src="../../static/calendar/images/red.png" height="5%" width="5%" style='vertical-align:middle;'> = full</p>
+		
+
+				<br>
+
+				<form>
+				    <div class="form-group">
+				     
+				      <textarea class="form-control" rows="3" id="comment"></textarea>
+				       <label onclick="showLocation()" for="comment"><i class="fa fa-map-marker" aria-hidden="true"></i> Share your location</label>
+				    </div>
+				  </form>
+				<br />
+
+			<div class="row">
+				  <div class="col-md-2"></div>
+				  <div class="col-md-8">
+				    <div class="address">
+				 
+				      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#ordine">Submit</button>
+				    </div>
+				  </div>
+				  <div class="col-md-2"></div>
+				</div>
+
+				<!-- Modal -->
+				<div id="ordine" class="modal fade" role="dialog">
+				  <div class="modal-dialog modal-sm">
+
+				    <!-- Modal content-->
+				    <div class="modal-content">
+				      
+				      <div class="modal-body">
+				        <p >Are You Sure ?</p>
+				    
+				      </div>
+				      <div class="modal-footer">
+				      <button type="button" class="btn btn-default" data-dismiss="modal" >Cancel</button>
+				     
+				        <a type="button" class="btn btn-primary" data-dismiss="modal"  id="submit" >Ok</a>
+				      </div>
+				    </div>
+
+				  </div>
+				</div>
+
+				</div>
+					
+	
+
+
+
+
+
+
+				
+
+
+			</div>
+	
+
+	<!-- container -->
+	</div>
+
+		
+
+
+<!-- 
+	
+		<div class="agileits-info">
+		
+					<div class="wthree-grids"> 
+					<label id="total"></label>
+
+					</div>
+		 
+		</div> -->
+
+	
+
+
+
+
+	</div>
+
+
+<!-- <div class="contrainer"> -->
+		<div id="map" class="m"></div>
+<!-- 
+</div>
+ -->
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+{% endblock content %} {% block script %}
+<script type="application/x-javascript">
+
+
+var userlocate;
+
+function getTime(id){
+
+
+	
+    // if (id === 'disclick'){
+    // 	alert("can't click");
+    // }
+
+
+}
+
+function showLocation(){
+	document.getElementById("comment").innerHTML = userlocate;
+}
+
+function myFunction(id) { 
+				      // alert(id);
+		
+				    // document.getElementById(id).style.cssText = 'background:#ffffff; color: #000000;';
+}
+
+
+		
+					
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue =   decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+function clickImg(){
+
+}
+
+//+++++++++++++++++++++++++++++++++++++++++++++Jquery
+		$(function() {
+
+			var total=0,is2Dog=false,service=[];
+
+
+			$(function () {
+    $('.button-checkbox').each(function () {
+
+        // Settings
+        var $widget = $(this),
+            $button = $widget.find('button'),
+            $checkbox = $widget.find('input:checkbox'),
+            color = $button.data('color'),
+            settings = {
+                on: {
+                    icon: 'glyphicon glyphicon-check'
+                },
+                off: {
+                    icon: 'glyphicon glyphicon-unchecked'
+                }
+            };
+
+        // Event Handlers
+        $button.on('click', function () {
+            $checkbox.prop('checked', !$checkbox.is(':checked'));
+            if(($checkbox).is(':checked')) {
+            	// console.log();
+            	if(is2Dog){
+            		total+=parseInt(  $checkbox.val()  ,  10  )*2;
+
+            	} else {
+            		total+=parseInt(  $checkbox.val()  ,  10  );
+            	}
+            	service.push($checkbox.attr('id'));
+        		
+           } else {
+           	 	console.log($checkbox.attr('id'));
+	           	if(is2Dog){
+	           		total-=parseInt(  $checkbox.val()  ,  10  )*2;
+	           	} else {
+	           		total-=parseInt(  $checkbox.val()  ,  10  );
+	           	}
+	           	service.push($checkbox.attr('id'));
+           }
+           $('#total').html(total+" ฿"); 
+            console.log(total);
+             console.log(service);
+            $checkbox.triggerHandler('change');
+            updateDisplay();
+        });
+        $checkbox.on('change', function () {
+            updateDisplay();
+        });
+
+        // Actions
+        function updateDisplay() {
+            var isChecked = $checkbox.is(':checked');
+
+            // Set the button's state
+            $button.data('state', (isChecked) ? "on" : "off");
+
+            // Set the button's icon
+            $button.find('.state-icon')
+                .removeClass()
+                .addClass('state-icon ' + settings[$button.data('state')].icon);
+
+            // Update the button's color
+            if (isChecked) {
+                $button
+                    .removeClass('btn-default')
+                    .addClass('btn-' + color + ' active');
+            }
+            else {
+                $button
+                    .removeClass('btn-' + color + ' active')
+                    .addClass('btn-default');
+            }
+        }
+
+        // Initialization
+        function init() {
+
+            updateDisplay();
+
+            // Inject the icon if applicable
+            if ($button.find('.state-icon').length == 0) {
+                $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i> ');
+            }
+        }
+        init();
+    });
+});
+
+
+
+
+
+
+			$('#our_table1').show(); 
+			$('#our_table2').hide(); 
+			var noDog=1;
+			$(document).ready(function() {
+			   $('input[type="radio"]').click(function() {
+			       if($(this).attr('id') == '1dog') {
+			       		if(is2Dog){
+			       			total = total / 2;
+			       			is2Dog = false;
+			       			$('#total').html('Total price: '+total); 
+			       			console.log("devied 2");
+			       		}
+			       		noDog = 1;
+			       		$('#our_table1').show();   
+						$('#our_table2').hide(); 
+						console.log("table1 for 1 dog"); 
+									           
+			         
+			       }
+
+			       else if ($(this).attr('id') == '2dog') {
+			       		if(!is2Dog){
+			       			total = total *2;
+			       			is2Dog = true;
+			       			$('#total').html('Total price: '+total); 
+			       			console.log("time 2");
+			       		}
+			       		noDog = 2;
+			       		$('#our_table1').hide();   
+						$('#our_table2').show(); 
+						 console.log("table2 for 2 dog");
+
+			       }
+			   });
+			});
+
+
+
+			var isHighlighted=null,car,isClick=false, f = true;
+			var day,isFull=true;
+			var isHighlighted2_1=null, isHighlighted2_2=null,receipt;
+			console.log(day);
+						$(document).ready(function() {
+						    $("#submit").click(function(){
+						    	if(day== undefined || isHighlighted.attr('id') == null ){
+						    		alert("กรุณากรอกให้ครบ");
+						    	} else {
+						    		    	if($('#1dog').is(':checked')) {
+						    		var d = { time : isHighlighted.attr('id'),
+						    			car : car,
+						    			day : day,
+						    			count : 1,
+						    			user: 'earn',
+						    			dog : '1',
+						    			total : total,
+						    			service : service,
+						    			location : userlocate
+
+						    		}
+						    		receipt = d ;
+						    	} else if ($('#2dog').is(':checked')) {
+						    		var d = { 
+						    			time1 : $('#'+isHighlighted2_1.attr('id')).attr('value'),
+						    			time2 : $('#'+isHighlighted2_2.attr('id')).attr('value'),
+						    			car : car,
+						    			day : day,
+						    			count : 2,
+						    			user: 'earn',
+						    			dog : '1',
+						    			total : total,
+						    			service : service,
+						    			location : userlocate
+						    		}
+						    		receipt = d;
+						    	}
+						    
+						    
+						    	var json = JSON.stringify(d);
+						    	console.log(json);
+						         $.ajax({
+							        url: '/submit/',
+							        type: 'GET',							        
+							        data: {json,csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()},
+							        dataType: "json",
+							        contentType: 'application/json; charset=utf-8',
+							        success: function(data) {
+							        	console.log("success");
+							        	console.log(data);
+
+							        	receipt = JSON.stringify(receipt);
+							        	// console.log("d : "+typeof(d)+);
+							       
+							        	var a = "{% url 'receipt' data=112233 %}".replace("112233", receipt);
+							        	window.location.href = a;
+											    
+											
+								    },
+								    error: function(data){
+								        alert("กรุณากรอกให้ครบ")
+								    }
+							      
+							    });    
+						    	}
+						   
+						    }); 
+						});
+
+
+					
+
+						$(function () {
+									
+										  $("#our_table1 td")
+										    .mousedown(function () {
+										    
+										     if(isClick){
+										     	if($(this).attr('id') =="disclick"){
+										     			alert("select anoter time");
+										     	} else {
+											     	isClick = false;
+											     	isHighlighted.toggleClass("highlighted");
+											     	$(this).toggleClass("highlighted");
+											     	isHighlighted = $(this);
+											     }
+										
+										     } else {
+										     	if(f){
+
+										     		if(isHighlighted != null){
+										     			isHighlighted.removeClass("highlighted");
+
+										     		}
+										     		if($(this).attr('id') =="disclick"){
+										     			alert("select anoter time");
+										     		} else {
+										     			isClick = true;
+											      	    $(this).toggleClass("highlighted");
+											      	    isHighlighted = $(this);
+
+											      	    f = false;
+										     		}
+										     		
+
+										     	} else {
+										     		if($(this).attr('id') =="disclick"){
+										     			alert("select anoter time");
+										     		} else {
+											     		isClick = true;
+											      	    $(this).toggleClass("highlighted");
+											      	    isHighlighted.toggleClass("highlighted");
+											      	    isHighlighted = $(this);
+										     		}
+										     	}
+										     	
+
+										     }
+										     
+										     	 // return false; // prevent text selection
+										    })
+										    // .mouseover(function () {
+										    //   if (isMouseDown) {
+										    //     $(this).toggleClass("highlighted", isHighlighted);
+										    //   }
+										    // })
+										    // .bind("selectstart", function () {
+										    //   return false;
+										    // })
+
+										  // $(document)
+										  //   .mouseup(function () {
+										  //     isMouseDown = false;
+										  //   });
+							});
+
+						
+
+							$(function () {
+									
+										  $("#our_table2 td")
+										    .mousedown(function () {
+										    console.log();
+										     if(isClick){
+										     	if($(this).attr('id') =="disclick" ||
+										     		 $(this).closest('td').next().attr('id') =="disclick" ||
+										     		 $(this).closest('td').next().attr('id') == undefined){
+										     			alert("select anoter time");
+										     	} else {
+											     	isClick = false;
+											     	isHighlighted2_1.toggleClass("highlighted");
+											     	isHighlighted2_2.toggleClass("highlighted");
+											     	$(this).toggleClass("highlighted");
+											     	isHighlighted2_1 = $(this);
+											     	$(this).closest('td').next().toggleClass("highlighted");										     	
+											      	isHighlighted2_2 = $(this).closest('td').next();
+											}
+										     } else {
+										     	if(f){
+										     		if(isHighlighted2_1 != null && isHighlighted2_2 !=null ){
+										     			isHighlighted2_1.removeClass("highlighted");
+										     			isHighlighted2_2.removeClass("highlighted");
+
+										     		}
+
+
+										     		
+										     		
+										     		if($(this).attr('id') =="disclick" ||
+										     		 $(this).closest('td').next().attr('id') =="disclick" ||
+										     		 $(this).closest('td').next().attr('id') == undefined){
+										     			alert("select anoter time");
+										     		} else {
+										     			
+
+										     				isClick = true;
+										     			$(this).toggleClass("highlighted");
+										      	   		isHighlighted2_1 = $(this);
+										      	   		$(this).closest('td').next().toggleClass("highlighted");	
+										      	    	isHighlighted2_2 = $(this).closest('td').next();
+										      	   		f = false;
+										      	   		console.log(isHighlighted2_1.attr('id')+"++++++");
+										     		}
+										      	  
+
+										     	} else {
+										     		if($(this).attr('id') =="disclick" ||
+										     		 $(this).closest('td').next().attr('id') =="disclick" ||
+										     		 $(this).closest('td').next().attr('id') == undefined){
+										     			alert("select anoter time");
+										     		} else {
+										     			isClick = true;
+										     		isHighlighted2_1.toggleClass("highlighted");
+										      	    isHighlighted2_2.toggleClass("highlighted");
+										      	    $(this).toggleClass("highlighted");
+										      	    isHighlighted2_1 = $(this);
+										      	    $(this).closest('td').next().toggleClass("highlighted");
+										      	    isHighlighted2_2 = $(this).closest('td').next();
+										     		}
+										     		
+										      	   
+										      	    
+										      	    
+										      	    
+										     		
+										     	}
+										     	
+
+										     }
+										     
+										     	 // return false; // prevent text selection
+										    })
+										    // .mouseover(function () {
+										    //   if (isMouseDown) {
+										    //     $(this).toggleClass("highlighted", isHighlighted);
+										    //   }
+										    // })
+										    // .bind("selectstart", function () {
+										    //   return false;
+										    // })
+
+										  // $(document)
+										  //   .mouseup(function () {
+										  //     isMouseDown = false;
+										  //   });
+							});
+
+
+
+
+						function updateMonthYear() {
+							$( '#custom-month' ).html( $( '#calendar' ).calendario('getMonthName') );
+							$( '#custom-year' ).html( $( '#calendar' ).calendario('getYear'));
+						}
+
+			
+						$(document).on('finish.calendar.calendario', function(e){
+							$( '#custom-month' ).html( $( '#calendar' ).calendario('getMonthName') );
+							$( '#custom-year' ).html( $( '#calendar' ).calendario('getYear'));
+							$( '#custom-next' ).on( 'click', function() {
+								$( '#calendar' ).calendario('gotoNextMonth', updateMonthYear);
+							} );
+							$( '#custom-prev' ).on( 'click', function() {
+								$( '#calendar' ).calendario('gotoPreviousMonth', updateMonthYear);
+							} );
+							$( '#custom-current' ).on( 'click', function() {
+								$( '#calendar' ).calendario('gotoNow', updateMonthYear);
+							} );
+							$( '#custom-current' ).on( 'click', function() {
+								$( '#calendar' ).calendario('gotoNow', updateMonthYear);
+							} );
+						});
+
+
+						function setDefualt(){
+							isClick = false;
+							f = true;
+							
+							car='';
+					
+							$( "table tr:nth-child(2) td:nth-child(1)" ).removeAttr('style');
+							var elements = document.getElementsByName('1');
+							var id = elements[0].id;
+							// console.log("id is : "+id);
+							$('#'+id).attr('id','1');
+							elements = document.getElementsByName('2_1');
+							id = elements[0].id;
+							$('#'+id).attr('id','2_1');
+
+							$( "table tr:nth-child(2) td:nth-child(2)" ).removeAttr('style');
+							elements = document.getElementsByName('2');
+							id = elements[0].id;
+							// console.log("id is : "+id);
+							$('#'+id).attr('id','2');
+							elements = document.getElementsByName('2_2');
+							id = elements[0].id;
+							$('#'+id).attr('id','2_2');
+
+
+							$( "table tr:nth-child(2) td:nth-child(3)" ).removeAttr('style');
+							elements = document.getElementsByName('3');
+							id = elements[0].id;
+							// console.log("id is : "+id);
+							$('#'+id).attr('id','3');
+							elements = document.getElementsByName('2_3');
+							id = elements[0].id;
+							$('#'+id).attr('id','2_3');
+
+
+							$( "table tr:nth-child(2) td:nth-child(4)" ).removeAttr('style');
+							elements = document.getElementsByName('4');
+							id = elements[0].id;
+							// console.log("id is : "+id);
+							$('#'+id).attr('id','4');
+							elements = document.getElementsByName('2_4');
+							id = elements[0].id;
+							$('#'+id).attr('id','2_4');
+
+
+							$( "table tr:nth-child(2) td:nth-child(5)" ).removeAttr('style');
+							elements = document.getElementsByName('5');
+							id = elements[0].id;
+							// console.log("id is : "+id);
+							$('#'+id).attr('id','5');
+							elements = document.getElementsByName('2_5');
+							id = elements[0].id;
+							$('#'+id).attr('id','2_5');
+
+
+							$( "table tr:nth-child(2) td:nth-child(6)" ).removeAttr('style');
+							elements = document.getElementsByName('6');
+							id = elements[0].id;
+							// console.log("id is : "+id);
+							$('#'+id).attr('id','6');
+							elements = document.getElementsByName('2_6');
+							id = elements[0].id;
+							$('#'+id).attr('id','2_6');
+
+
+						}
+
+						
+
+						$('#calendar').on('shown.calendar.calendario', function(){
+							$('div.fc-row > div').on('onDayClick.calendario', function(e, dateprop) {
+								console.log(dateprop.day+" "+dateprop.month+" "+dateprop.year);
+								
+							 
+							
+								var todaysDate = new Date();
+							    var inputDate = new Date(dateprop.year+"/"+dateprop.month+"/"+dateprop.day);
+       						
+       						
+								if(dateprop.weekdayname == "Monday") {
+									alert("วันหยุด กรุณาเลือกวันอื่น");
+									$('#our_table1').hide();   
+									$('#our_table2').hide(); 
+								} 
+								if (inputDate.setHours(0,0,0,0) < todaysDate.setHours(0,0,0,0)) {
+								
+								    alert("Date must be in the future");
+								    $('#our_table1').hide();   
+									$('#our_table2').hide(); 
+								   
+								}else {
+
+										setDefualt();
+									if(is2Dog){
+										$('#our_table2').show(); 
+									} else {
+										$('#our_table1').show(); 
+									}
+
+										$('#day').text(dateprop.day +" "+dateprop.monthname+" "+dateprop.year);
+								var d = JSON.stringify(dateprop);
+								// var lalong = {"la": ""+la, "long" : ""+long};
+
+								day = dateprop.day+"/"+dateprop.month+"/"+dateprop.year;
+ 							
+							    
+							    var json = { day:dateprop.day,
+							    			 month:dateprop.month,
+							    			monthname:dateprop.monthname,
+							    			year:dateprop.year,
+							    			weekday:dateprop.weekday,
+							    			weekdayname:dateprop.weekdayname,
+							    			data:dateprop.data,
+							    			la: la,
+							    			long:long,
+							    };
+
+							    var use = JSON.stringify(json);
+
+							    // var jsonText = JSON.stringify(values);
+							    $.ajax({
+							        url: '/time/',
+							        type: 'GET',							        
+							        data: {use,csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()},
+							        dataType: "json",
+							        // contentType: 'application/json; charset=utf-8',
+							        success: function(data) {
+							        	setDefualt();
+							        	// console.log("This is car "+data.car);
+							        	if(data.count == "full") {
+							        		isFull = true;
+											alert("This day is full. Please select anoter day");
+										}
+							        	// else if(data.count != '0'){	
+							        	else if(data.count != '0'){	
+			    						
+
+			           //  				   if(noDog == 1 ){
+			           //  				   	    $('#our_table1').show(); 
+									     //        $('#our_table2').hide();          
+									     //        console.log("table1 for 1 dog"); 
+			           //  				   } else if(noDog == 2){
+
+						  						// $('#our_table1').hide();   
+									     //        $('#our_table2').show(); 
+									     //        console.log("table1 for 1 dog"); 
+									     //        console.log("table2 for 2 dog");
+			           //  				   }
+
+							        	   isFull = false;
+							        	   console.log("isFiLL : "  + isFull);
+											var str = data.response;
+											 
+											var x = $.parseJSON('[' + str + ']');
+											car = data.car;
+									
+											console.log(x)
+										our_table1
+											for (var i = 0; i < data.count ; i++) { 
+												// console.log(i);
+								        		if(x[0][i].fields['time'] == '1'){
+								        			  $( "table tr:nth-child(2) td:nth-child(1)" ).css("background-color", "#e84c3d");
+											     	  $('#1').attr('id','disclick');
+											     	  $('#2_1').attr('id','disclick');
+								        			 
+								        			  // console.log("yeahhhhhhh");
+								        		} else if(x[0][i].fields['time'] == '2'){
+								        			$( "table tr:nth-child(2) td:nth-child(2)" ).css("background-color", "#e84c3d");
+								        			    $('#2').attr('id','disclick');
+								        			    $('#2_2').attr('id','disclick');
+								        		} else if(x[0][i].fields['time'] == '3'){
+								        			$( "table tr:nth-child(2) td:nth-child(3)" ).css("background-color", "#e84c3d");
+								        			   // $("#3").val("yeah3");
+								        			       $('#3').attr('id','disclick');
+								        			       $('#2_3').attr('id','disclick');
+								        		} else if(x[0][i].fields['time'] == '4'){
+								        			$( "table tr:nth-child(2) td:nth-child(4)" ).css("background-color", "#e84c3d");
+								        			   // $("#4").val("yeah4");
+								        			       $('#4').attr('id','disclick');
+								        			       $('#2_4').attr('id','disclick');
+								        		} else if(x[0][i].fields['time'] == '5'){
+								        			$( "table tr:nth-child(2) td:nth-child(5)" ).css("background-color", "#e84c3d");
+								        			   // $("#5").val("yeah5");
+								        			       $('#5').attr('id','disclick');
+								        			       $('#2_5').attr('id','disclick');
+								        		} else {
+								        			$( "table tr:nth-child(2) td:nth-child(6)" ).css("background-color", "#e84c3d");
+								        			       $('#6').attr('id','disclick');
+								        			       $('#2_6').attr('id','disclick');
+								        		}
+											    
+											}
+										}  
+										// else {
+										// 	car = data.car;
+										
+										// 	// console.log(str);
+										// }
+
+
+
+								    },
+								    error: function(data){
+								    	setDefualt();
+								        console.log("click fail");
+								    }
+							      
+							    });       
+								}
+							
+							
+
+
+							});
+						});
+					
+						var transEndEventNames = {
+							'WebkitTransition' : 'webkitTransitionEnd',
+							'MozTransition' : 'transitionend',
+							'OTransition' : 'oTransitionEnd',
+							'msTransition' : 'MSTransitionEnd',
+							'transition' : 'transitionend'
+						},
+						transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
+						$wrapper = $( '#custom-inner' );
+
+						function showEvents( contentEl, dateprop ) {
+							hideEvents();
+							var $events = $( '<div id="custom-content-reveal" class="custom-content-reveal"><h4>Events for ' + dateprop.monthname + ' '
+							+ dateprop.day + ', ' + dateprop.year + '</h4></div>' ),
+							$close = $( '<span class="custom-content-close"></span>' ).on( 'click', hideEvents);
+							$events.append( contentEl.join('') , $close ).insertAfter( $wrapper );
+							setTimeout( function() {
+								$events.css( 'top', '0%' );
+							}, 25);
+						}
+						
+						function hideEvents() {
+							var $events = $( '#custom-content-reveal' );
+							if( $events.length > 0 ) {   
+								$events.css( 'top', '100%' );
+								Modernizr.csstransitions ? $events.on( transEndEventName, function() { $( this ).remove(); } ) : $events.remove();
+							}
+						}
+						
+						$( '#calendar' ).calendario({
+							caldata : events,
+							displayWeekAbbr : true,
+							events: ['click', 'focus'],
+						
+						});
+					
+					});
+	
+
+  </script>
+
+     <script 
+  src="http://maps.google.com/maps/api/js?sensor=false&amp;language=th-TH"      
+  type="text/javascript"></script> 
+ <script>
+      // Note: This example requires that you consent to location sharing when
+      // prompted by your browser. If you see the error "The Geolocation service
+      // failed.", it means you probably did not give permission for the browser to
+      // locate you.
+
+      var map, infoWindow, la,long;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 6
+        });
+        infoWindow = new google.maps.InfoWindow;
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            la = pos.lat;
+            long = pos.lng;
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            infoWindow.open(map);
+            map.setCenter(pos);
+
+       	
+			var geocoder = new google.maps.Geocoder();
+
+			geocoder.geocode({
+			    'latLng': {lat: pos.lat, lng: pos.lng}
+			}, function(results, status) {
+
+			    if (status == google.maps.GeocoderStatus.OK) {
+			      if (results[0]) {
+			      	userlocate = results[0].formatted_address;
+			      	
+			      	
+
+			        // alert(results[0].formatted_address);
+			      }
+			    }
+			  });
+		
+
+
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+
+
+ 
+
+
+
+
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdKsRe_QCc8d2yrN47uzlT4R5LUTb-07A&callback=initMap">
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock script %}

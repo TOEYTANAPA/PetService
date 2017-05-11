@@ -1,0 +1,279 @@
+ {% extends "base.html" %} {% block content %}{% load static %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="all">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet" media="all">
+<!-- Meta-Tags -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+body {
+    background: url('{% static 'images/commentBG.png' %}');
+    background-repeat: no-repeat;
+    /*background-attachment: fixed;*/
+    background-position: center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    /*color: #FFF;*/
+    font-family: 'Quicksand', sans-serif;
+}
+
+.w3-agile-news-img a img {
+    width: 100%;
+    /*margin:0 0 1em 0;*/
+}
+
+input[type="button"],
+input[type="submit"] {
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea {
+    width: 10px;
+    padding: 16px 10px 15px 60px;
+    font-size: 14px;
+    background: transparent;
+    border: none;
+    border: 1px solid #ffffff;
+    outline: none;
+    margin-bottom: 26px;
+    color: #fff;
+    border-radius: 25px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+input[type="text"] {
+    /*background: url("../images/user.png") no-repeat 20px 12px;*/
+    background-size: 24px;
+}
+
+select {
+    border-radius: 25px;
+    font-size: 14px;
+    height: 33px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+#textInput {
+    width: 200px;
+}
+
+#username {
+    color: #FAD733;
+    font-size: 20px;
+    margin-top: -5px;
+    font-weight: bold;
+    margin-left: -10px;
+}
+
+#stars {
+    font-size: 140px;
+    color: #FF0000;
+}
+
+#stars-existing {
+    color: #FFED85;
+}
+
+div.stars {
+    width: 270px;
+    display: inline-block;
+}
+
+input.star {
+    display: none;
+}
+
+label.star {
+    float: right;
+    padding: 10px;
+    font-size: 36px;
+    color: #444;
+    transition: all .2s;
+}
+
+input.star:checked ~ label.star:before {
+    content: '\f005';
+    color: #FD4;
+    transition: all .25s;
+}
+
+input.star-5:checked ~ label.star:before {
+    color: #FE7;
+    text-shadow: 0 0 20px #952;
+}
+
+input.star-1:checked ~ label.star:before {
+    color: #F62;
+}
+
+label.star:hover {
+    transform: rotate(-15deg) scale(1.3);
+}
+
+label.star:before {
+    content: '\f006';
+    font-family: FontAwesome;
+}
+
+.jumbotron {
+    background-color: rgba(255, 255, 255, 1.0);
+    transition: all 0.2s ease;
+    /*border:2px solid #525C7A;*/
+    margin-top: 10px;
+    margin-left: 0 !important;
+    box-sizing: border-box;
+    border-radius: 0px;
+    background-clip: padding-box;
+    /*min-height: 340px;*/
+    height: auto;
+}
+
+.container {
+    display: inline-block;
+    position: relative;
+    width: 65%;
+    /*background: url('https://s20.postimg.org/o09gf7fvx/bag.jpg') no-repeat center top;*/
+    background-size: contain;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    /*font-family: 'Roboto Condensed', sans-serif;*/
+}
+
+
+/**/
+</style>
+
+<!-- banner -->
+<div class="header" style="background: transparent;">
+    <div class="container">
+        <br>
+        <div class="header-right">
+            <div class="top-nav">
+                <nav class="navbar navbar-default">
+                    <div class="navbar-header">
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <img src="{% static 'images/Logo.png' %}" width="10%" height="10%" style="margin-top: -30px">
+                        <ul class="nav navbar-nav">
+                            <li><a class="active" href="/">Home</a></li>
+                            <li><a href="/profile">Profile</a></li>
+                            <li><a href="service">Service</a></li>
+                            <li><a href="/comment">Comment</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                            <li>
+                                <p id="username"> {{ current_user.username }}</p>
+                            </li>
+                            <li><a href="/logout/">Logout</a></li>
+                        </ul>
+                        <div class="clearfix"> </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //banner -->
+<div class="container">
+    <div class="jumbotron">
+        <!--   <br><br><br> -->
+        <!-- <center> -->
+        <h1>COMMENT</h1>
+        <!-- </center> -->
+        <div class="w3-agileits-news-grids">
+            <div class="contact-form">
+                <div class="news-right-grid">
+                </div>
+                <!-- 
+     {% for x in reviewForm.rating %} 
+                
+    
+    {% endfor %} -->
+                <!-- <label>Comment: </label> -->
+                <!-- {{ reviewForm.comment }} -->
+                <!-- <div id="textInput" style="white-space:nowrap;"> -->
+                <!-- <label>Name: </label> {{ person.username }} -->
+                <!-- </div> -->
+                <!-- <div id="textInput" style="white-space:nowrap;margin-bottom: 15px"> -->
+                <!--             <br>
+                        {{ person.address }} -->
+                <!-- </div> -->
+                <!-- <div  style="white-space:nowrap;"> -->
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div>
+                        <input class="star star-5" id="star-5" value="5" type="radio" name="star" />
+                        <label class="star star-5" for="star-5"></label>
+                        <input class="star star-4" id="star-4" value="4" type="radio" name="star" />
+                        <label class="star star-4" for="star-4"></label>
+                        <input class="star star-3" id="star-3" value="3" type="radio" name="star" />
+                        <label class="star star-3" for="star-3"></label>
+                        <input class="star star-2" id="star-2" value="2" type="radio" name="star" />
+                        <label class="star star-2" for="star-2"></label>
+                        <input class="star star-1" id="star-1" value="1" type="radio" name="star" />
+                        <label class="star star-1" for="star-1"></label>
+                    </div>
+                    <br>
+                    <!-- {{ reviewForm.as_p }} -->
+                    <label>Comment: </label>
+                    {{ reviewForm.comment }}
+                    <!-- <label>Choosepicture: </label> -->
+                    <div class="container">
+                        <div class="row">
+                            {{ reviewForm.picDR }}
+                            <br>
+                            <img id="blah" src="#" alt="your image" width="50%" height="50%" />
+                        </div>
+                    </div>
+                    <input style="width: 100%" id="submit" type="submit" value="Submit" />
+                </form>
+            
+            </div>
+        </div>
+        <!--   <h1>Bootstrap Tutorial</h1>
+                    <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile-first projects on the web.</p>
+                </div>
+                <p>This is some text.</p>
+                <p>This is another text.</p> -->
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br> {% endblock content %} {% block script %}
+<script type="text/javascript">
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            $('#blah').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#imgInp").change(function() {
+    readURL(this);
+});
+</script>
+{% endblock script %}

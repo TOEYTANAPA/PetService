@@ -1,0 +1,176 @@
+{% extends "base.html" %} {% block content %} 
+{% load static %}
+<html>
+<style type="text/css">
+    
+    body {
+        margin-top: 10%;
+     padding: 0;
+    }
+</style>
+    <body>
+
+<div class="container">
+    <div class="row">
+
+
+        <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <address>
+                        <strong id="name"></strong>
+                        <br>
+                        <strong id="address"></strong>
+                        <br>
+                      
+                        <!-- <abbr title="Phone">P:</abbr> (213) 484-6829 -->
+                    </address>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+                    <p>
+                        <em id="day"></em>
+                    </p>
+                    <p>
+                        <em id="time1"></em>
+                    </p>
+                     <p>
+                        <em id="time2"></em>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center">
+                    <h1>Receipt</h1>
+                </div>
+                <div id="insertTable">
+                    
+
+                </div>
+
+                <button onclick="save()" type="button" class="btn btn-success btn-lg btn-block">Save<span class="glyphicon glyphicon-chevron-right"></span></button>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+      
+ 
+    </body>
+</html>
+
+
+{% endblock content %} {% block script %}
+<script type="application/x-javascript"> 
+        var data = {{data|safe}};
+        console.log(data.service.length);
+        $('#name').text(data.user);
+        $('#address').text(data.location);
+        $('#day').text("Booking : "+data.day);
+        if(data.count == 2 ){
+            if(data.time1== 1) {
+                 $('#time1').text("9:00-11:00 น.");
+            } else if (data.time1 == 2){
+                  $('#time1').text("11:00-13:00 น.");
+            } else if(data.time1 == 3){
+                 $('#time1').text("13:00-15:00 น.");
+            } else if(data.time1 == 4){
+                 $('#time1').text("15:00-17:00 น.");
+            } else if(data.time1 == 5){
+                 $('#time1').text("17:00-19:00 น.");
+            } else if(data.time1 == 6){
+                 $('#time1').text("19:00-21:00 น.");
+            }
+
+            if(data.time2== 1) {
+                 $('#time2').text("9:00-11:00 น.");
+            } else if (data.time2 == 2){
+                  $('#time2').text("11:00-13:00 น.");
+            } else if(data.time2 == 3){
+                 $('#time2').text("13:00-15:00 น.");
+            } else if(data.time2 == 4){
+                 $('#time2').text("15:00-17:00 น.");
+            } else if(data.time2 == 5){
+                 $('#time2').text("17:00-19:00 น.");
+            } else if(data.time2 == 6){
+                 $('#time2').text("19:00-21:00 น.");
+            }
+            
+           
+        } else if(data.count == 1){
+              if(data.time== 1) {
+                 $('#time1').text("9:00-11:00 น.");
+            } else if (data.time == 2){
+                  $('#time1').text("11:00-13:00 น.");
+            } else if(data.time == 3){
+                 $('#time1').text("13:00-15:00 น.");
+            } else if(data.time == 4){
+                 $('#time1').text("15:00-17:00 น.");
+            } else if(data.time == 5){
+                 $('#time1').text("17:00-19:00 น.");
+            } else if(data.time == 6){
+                 $('#time1').text("19:00-21:00 น.");
+            }
+
+        }
+       
+        // var table = document.getElementById('table');
+
+        var rowLength = data.service.length;
+
+        // for(var i=1; i<=rowLength; i+=1){
+        //   var row = table.rows[i];
+
+        //   var cellLength = 4;
+        //   for(var y=0; y<cellLength; y+=1){
+        //     var cell = row.cells[y];
+        //     cell.append("eiei");
+        //     //do something with every cell here
+        //   }
+        // }
+
+        var mytable = '<table class="table table-hover" id="table">';
+        mytable +=' <thead><tr><th>Service</th><th>#</th><th class="text-center">Price</th> <th class="text-center">Total</th> </tr> </thead> <tbody><tr>';
+                           
+                       // wash haircut nailcut cleanear teeth shop
+var price;
+  for(var i=0; i<rowLength; i+=1){
+      if(data.service[i] == "wash"){
+               price = 500;  
+           } else if(data.service[i] == "haircut"){
+               price = 500;
+           } else if(data.service[i] == "nailcut"){
+                price = 500;
+           } else if(data.service[i] == "cleanear"){
+                price = 500;
+           } else if(data.service[i] == "teeth"){
+                price = 500;
+           } else if(data.service[i] == "shop"){
+                price = 200;
+           }
+           mytable += '</tr><tr>';
+
+
+           mytable += '<td class="col-md-9"><em>'+data.service[i]+'</em></h4></td>';
+           mytable += '<td class="col-md-1" style="text-align: center">'+data.count+'</td>';
+           mytable += '<td class="col-md-1 text-center">'+price+'฿'+'</td>'; 
+           mytable += '<td class="col-md-1 text-center">'+price * data.count+'฿'+'</td>';           
+               mytable += '</tr>' ;       
+           
+}
+
+
+mytable += '<td></td><td></td> <td class="text-right"><p> <strong>Subtotal: </strong> </p> <p><strong>Tax: </strong></p></td><td class="text-center"> <p> <strong>'+data.total+'฿'+'</strong> </p> <p><strong>0฿</strong></p></td></tr> <tr><td>   </td><td>   </td> <td class="text-right"><h4><strong>Total: </strong></h4></td> <td class="text-center text-danger"><h4><strong>'+data.total+'฿'+'</strong></h4></td>  </tr></tbody> </table>';
+
+// mytable += ' <button type="button" class="btn btn-success btn-lg btn-block">'+
+// ' Save<span class="glyphicon glyphicon-chevron-right"></span>'+'</button>';
+$("#insertTable").html(mytable);
+// document.write(mytable);
+
+
+</script>
+
+
+
+{% endblock script %}

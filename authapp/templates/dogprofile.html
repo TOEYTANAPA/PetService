@@ -1,0 +1,141 @@
+ {% extends "base.html" %} {% block content %}
+<style>
+}
+</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="all">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet" media="all">
+<!-- Meta-Tags -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- //Meta-Tags -->
+<!-- Custom-Stylesheet-Links -->
+<!-- Bootstrap-CSS -->
+<!--  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="all"> -->
+<!-- Index-Page-CSS -->
+<!--  <link rel="stylesheet" href="css/style.css"         type="text/css" media="all"> -->
+<!-- PopUp-Box-CSS -->
+<!--  <link rel="stylesheet" href="css/chocolat.css"      type="text/css" media="all"> -->
+<!-- //Custom-Stylesheet-Links -->
+{% load static %}
+<!-- banner -->
+<style>
+.w3-agile-news-img a img {
+    width: 100%;
+    /*margin:0 0 1em 0;*/
+}
+</style>
+<div class="header">
+    <div class="container">
+        <div class="header-left">
+            <div class="w3layouts-logo">
+                <h1>
+              <a href="index.html">Grooming <span>With Care</span></a>
+            </h1>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="top-nav">
+                <nav class="navbar navbar-default">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a class="active" href="index.html">Home</a></li>
+                            <li><a href="about.html">About</a></li>
+                            <li class=""><a href="#" class="dropdown-toggle hvr-bounce-to-bottom" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Codes<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="hvr-bounce-to-bottom" href="icons.html">Icons</a></li>
+                                    <li><a class="hvr-bounce-to-bottom" href="typography.html">Typography</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="gallery.html">Gallery</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                        <div class="clearfix"> </div>
+                    </div>
+                </nav>
+            </div>
+            <!-- <div class="agileinfo-social-grids">
+            <ul>
+              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+              <li><a href="#"><i class="fa fa-rss"></i></a></li>
+              <li><a href="#"><i class="fa fa-vk"></i></a></li>
+            </ul>
+          </div> -->
+            <div class="clearfix"> </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<!-- //banner -->
+<!-- news -->
+<!-- <div class="news"> -->
+<div class="container">
+    <div class="w3ls-heading">
+        <center>
+            <h3>Dog Profile</h3>
+        </center>
+    </div>
+    <div class="w3-agileits-news-grids">
+        <div class="col-md-4 news-left">
+            <div class="w3-agile-news-img">
+                <a href="single.html"> <img src="{% static 'images/g2.jpg' %}"></a>
+                <!--   <h4><a href="single.html">Pellentesque habitant morbi tristique senectus et netus et malesuada fames</a></h4>
+                    <p>Donec justo ante, maximus et aliquam et, elementum ac purus. Nam eget ante ac velit laoreet sodales ut vel nibh. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sed quam nibh. In sed nisi enim. Duis eget nunc vitae elit dignissim feugiat. Morbi molestie fringilla ipsum, id molestie dolor sodales vel.</p> -->
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="col-md-6 news-right">
+            <div class="news-right-grid">
+                <a href="single.html">Nunc non neque ex. Aliquam neque massa</a>
+                <h5>06th Nov,2016</h5>
+                <p>Ut rutrum convallis erat at malesuada. Donec facilisis sem nisl, ut rhoncus ex ullamcorper ornare. Ut ac interdum velit. Cras nulla nibh, rutrum non venenatis sit amet, ullamcorper venenatis felis.</p>
+            </div>
+        </div>
+        <div class="clearfix"> </div>
+        <br>
+        <br>
+        <div class="col-md-4 news-left">
+            <div class="w3-agile-news-img">
+                <a href="single.html"> <img src="{% static 'images/g2.jpg' %}"></a>
+                <!--   <h4><a href="single.html">Pellentesque habitant morbi tristique senectus et netus et malesuada fames</a></h4>
+                    <p>Donec justo ante, maximus et aliquam et, elementum ac purus. Nam eget ante ac velit laoreet sodales ut vel nibh. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sed quam nibh. In sed nisi enim. Duis eget nunc vitae elit dignissim feugiat. Morbi molestie fringilla ipsum, id molestie dolor sodales vel.</p> -->
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="col-md-6 news-right">
+            <div class="news-right-grid">
+                <a href="single.html">Nunc non neque ex. Aliquam neque massa</a>
+                <h5>06th Nov,2016</h5>
+                <p>Ut rutrum convallis erat at malesuada. Donec facilisis sem nisl, ut rhoncus ex ullamcorper ornare. Ut ac interdum velit. Cras nulla nibh, rutrum non venenatis sit amet, ullamcorper venenatis felis.</p>
+            </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<!-- </div> -->
+<!-- //news -->
+<br>
+<br>
+<br>
+<br> {% endblock content %} {% block script %}
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $(".scroll").click(function(event) {
+        event.preventDefault();
+        $('html,body').animate({
+            scrollTop: $(this.hash).offset().top
+        }, 1000);
+    });
+});
+</script>
+{% endblock script %}

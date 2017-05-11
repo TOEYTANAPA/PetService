@@ -1,0 +1,143 @@
+ {% extends "base.html" %} {% block content %}
+<style>
+}
+</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="all">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet" media="all">
+<!-- Meta-Tags -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- //Meta-Tags -->
+<!-- Custom-Stylesheet-Links -->
+<!-- Bootstrap-CSS -->
+<!--  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="all"> -->
+<!-- Index-Page-CSS -->
+<!--  <link rel="stylesheet" href="css/style.css"         type="text/css" media="all"> -->
+<!-- PopUp-Box-CSS -->
+<!--  <link rel="stylesheet" href="css/chocolat.css"      type="text/css" media="all"> -->
+<!-- //Custom-Stylesheet-Links -->
+{% load static %}
+<style>
+body {
+    background: url('{% static 'images/contactBG.png' %}');
+    /*background-repeat: no-repeat;*/
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    /*color: #FFF;*/
+    /*font-family: 'Quicksand', sans-serif;*/
+    text-align: center;
+}
+
+#homeBG {}
+
+.choose-icon span.glyphicon-phone-alt,
+.choose-icon i.fa.fa-scissors,
+.choose-icon i.fa.fa-comment-o,
+.choose-icon i.fa.fa-user {
+    background: #FAD733;
+    /*background: #FFFFFF;*/
+    padding: .9em 0 0 0;
+    width: 140px;
+    height: 140px;
+    color: #FFFFFF;
+    /*color: #000000;*/
+    font-size: 3em;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+}
+
+#username {
+    color: #FAD733;
+    font-size: 20px;
+    margin-top: -5px;
+    font-weight: bold;
+    margin-left: -10px;
+}
+h1{
+    
+}
+</style>
+<div class="homeBG">
+    <!-- banner -->
+    <div class="header">
+        <div class="container">
+            <br>
+            <div class="header-right">
+                <div class="top-nav">
+                    <nav class="navbar navbar-default">
+                        <div class="navbar-header">
+                            <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button> -->
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <img src="{% static 'images/Logo.png' %}" width="10%" height="10%" style="margin-top: -30px">
+                            <ul class="nav navbar-nav">
+                                <li><a class="active" href="index.html">Home</a></li>
+                                <li><a href="/profile">Profile</a></li>
+                                <li><a href="service">Service</a></li>
+                                <li><a href="comment">Comment</a></li>
+                                <li><a href="/contact">Contact</a></li>
+                                <li>
+                                    <p id="username"> {{ current_user.username }}</p>
+                                </li>
+                                <li><a href="/logout/">Logout</a></li>
+                            </ul>
+                            <div class="clearfix"> </div>
+                        </div>
+                    </nav>
+                </div>
+        
+            </div>
+            
+        </div>
+    </div>
+    <div class="about" style="margin-top: -40px">
+        <!-- choose -->
+        <div class="w3-agileits-choose">
+            <div class="container">
+     <!--            <br>
+                <br>    <br>
+                <br>    <br> -->
+                <br>    <br>
+                <br>    <br>
+                <br>
+                  <center>
+                        <h1>Email office : grooming_care@hotmail.com</h1>
+                    <h1>Office : 02- 345-6667</h1>
+                  </center>
+                  
+             
+            </div>
+        </div>
+        <!-- //choose -->
+    </div>
+</div>
+{% endblock content %} {% block script %}
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $(".scroll").click(function(event) {
+        event.preventDefault();
+        $('html,body').animate({
+            scrollTop: $(this.hash).offset().top
+        }, 1000);
+    });
+});
+</script>
+{% endblock script %}
